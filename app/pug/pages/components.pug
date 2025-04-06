@@ -1,0 +1,29 @@
+include ../layout/_mixins
+doctype html
+html(lang="en")
+  block head
+  include ../layout/_head
+  body
+    .wrapper.d-flex.flex-column
+      // Header
+      - var activePage = 'Main'
+      include ../layout/_header
+
+      // Main
+      main.main.flex-grow-1.flex-shrink-1.pt-6
+        .container.d-flex.gap-3
+          button.btn.btn-primary(type="button") Primary
+          button.btn.btn-secondary(type="button") Secondary
+          button.btn.btn-success(type="button") Success
+          button.btn.btn-danger(type="button") Danger
+          button.btn.btn-warning(type="button") Warning
+          button.btn.btn-info(type="button") Info
+          button.btn.btn-light(type="button") Light
+          button.btn.btn-dark(type="button") Dark
+          button.btn.btn-link(type="button") Link
+
+      // Footer
+      include ../layout/_footer
+
+    // Scripts
+    script(src='js/main.bundle.js', defer)
