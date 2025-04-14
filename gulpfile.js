@@ -1,3 +1,7 @@
+import path from "path";
+import fs from "fs";
+import glob from "fast-glob";
+// import tinify from "tinify";
 import gulp from "gulp";
 const { dest, parallel, series, src, watch } = gulp;
 import browsersync from "browser-sync";
@@ -7,6 +11,7 @@ import notify from "gulp-notify";
 import autoPrefixer from "gulp-autoprefixer";
 import rename from "gulp-rename";
 import uglify from "gulp-uglify";
+import dotenv from "dotenv";
 
 // PUG
 import plumber from "gulp-plumber";
@@ -32,6 +37,7 @@ const paths = {
     css: "app/css",
     js: "app/js",
     pug: "app/pug",
+    img: "app/img",
   },
   build: {
     root: "build",
@@ -78,6 +84,32 @@ const css = () => {
     .pipe(browsersync.stream());
 };
 
+// tinify.key = dotenv.config().parsed.TINYPNG_API_KEY;
+
+// const imagesPath = `${paths.dev.img}/**/*.{png,jpg,jpeg,webp}`;
+
+// const compressImages = async (done) => {
+//   try {
+//     const files = await glob(imagesPath.replace(/\\/g, "/"));
+
+//     for (const file of files) {
+//       const source = tinify.fromFile(file);
+//       await source.toFile(file);
+//       console.log(`✅ Compressed: ${file}`);
+//     }
+
+//     done();
+//   } catch (error) {
+//     notify.onError({
+//       title: "Tinify Compression Error",
+//       message: error.message,
+//       sound: false,
+//     })(error);
+
+//     done(error);
+//   }
+// };
+
 pugbem.b = true;
 
 const html = () => {
@@ -115,11 +147,11 @@ const buildCopy = () => {
       `${paths.dev.js}/*.{js,json}`,
       `!${paths.dev.js}/main.js`,
       `${paths.dev.js}/main.bundle.js`,
+      `${paths.dev.img}/**/*.{png,jpg,jpeg,webp,svg,gif}`,
       `${paths.dev.root}/*.html`,
     ],
     {
       base: `${paths.dev.root}/`,
-      allowEmpty: true,
     }
   ).pipe(dest(`${paths.build.root}/`));
 };
@@ -138,5 +170,6 @@ const startWatch = () => {
   );
 };
 
+// export const compress = series(compressImages);
 export const build = series(cleanBuild, minJs, css, html, buildCopy);
 export default series(js, css, html, parallel(browserSync, startWatch));
