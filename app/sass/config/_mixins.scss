@@ -1,1 +1,84 @@
-// Custom mixins go here 
+@mixin font_face($font-family, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    src: url($file-path + ".woff2") format("woff2"),
+      url($file-path + ".woff") format("woff");
+  }
+}
+
+@mixin xxxl {
+  @media only screen and (max-width: calc($xxxl - 1px)) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media only screen and (max-width: calc($xxl - 1px)) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media only screen and (max-width: calc($xl - 1px)) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and (max-width: calc($lg - 1px)) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and (max-width: calc($md - 1px)) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media only screen and (max-width: calc($sm - 1px)) {
+    @content;
+  }
+}
+
+// media queries for min-width
+
+@mixin min_xxxl {
+  @media only screen and (min-width: $xxxl) {
+    @content;
+  }
+}
+
+@mixin min_xxl {
+  @media only screen and (min-width: $xxl) {
+    @content;
+  }
+}
+
+@mixin min_xl {
+  @media only screen and (min-width: $xl) {
+    @content;
+  }
+}
+
+@mixin min_lg {
+  @media only screen and (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin min_md {
+  @media only screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin min_sm {
+  @media only screen and (min-width: $sm) {
+    @content;
+  }
+}
+
